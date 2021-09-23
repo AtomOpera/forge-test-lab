@@ -1,0 +1,28 @@
+modules:
+  jira:issuePanel:
+    - key: forge-test-lab-hello-world-panel
+      function: main
+      title: forge-test-lab
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+  jira:projectPage:
+    - key: forge-test-lab-project-page
+      function: project-ui
+      title: forge-test-lab
+  jira:issueGlance:
+    - key: forge-test-lab-issue-glance
+      function: issue-glance-ui
+      title: forge-test-lab
+      label: forge-test-lab label
+  function:
+    - key: main
+      handler: index.Issue
+    - key: project-ui
+      handler: index.Project
+    - key: issue-glance-ui
+      handler: index.Glance
+permissions:
+  scopes:
+    - read:jira-work
+    - storage:app
+app:
+  id: ari:cloud:ecosystem::app/e0681c4c-f5b4-4528-8756-c8051e7dd15e
