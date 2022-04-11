@@ -1,4 +1,9 @@
 modules:
+  jira:globalPage:
+    - key: forge-test-lab-hello-world-global-page
+      function: global
+      title: forge-test-lab
+      icon: https://pic.onlinewebfonts.com/svg/img_286633.png
   jira:issuePanel:
     - key: forge-test-lab-hello-world-panel
       function: main
@@ -14,6 +19,13 @@ modules:
       title: forge-test-lab
       label: forge-test-lab label
   function:
+    # - key: global
+    #   handler: global.run
+    # OR
+    # - key: global
+    #   handler: index.Global
+    - key: global
+      handler: index.Global
     - key: main
       handler: index.Issue
     - key: project-ui
@@ -25,4 +37,4 @@ permissions:
     - read:jira-work
     - storage:app
 app:
-  id: ari:cloud:ecosystem::app/e0681c4c-f5b4-4528-8756-c8051e7dd15e
+  id: ari:cloud:ecosystem::app/02674004-369e-4ffe-8120-9589342ec454
