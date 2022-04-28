@@ -14,28 +14,66 @@ import ForgeUI, {
 } from '@forge/ui';
 import api, { route } from '@forge/api';
 
-const getAllIssues = async () => {
+const getAllIssues = async (allIssues, setAllIssues) => {
+  const currentIssues = [...allIssues];
   const allProjects = 'project is not EMPTY';
+  const startAt = 0;
+  const maxResults = 1;
+  let count = 0;
+  const paginated = `&startAt=${startAt}&maxResults=${maxResults}`;
   const KTProject = 'project = "KT"';
-  const result = await api
-    .asApp()
-    .requestJira(
-      route`/rest/api/3/search?jql=${allProjects}`
-    );
+  while (count < 5){
+    // const result = await api
+    // .asApp()
+    // .requestJira(
+    //   route`/rest/api/3/search?jql=${allProjects}&startAt=${count}&maxResults=${maxResults}&fields=summary,comment`
+    // );
+    // const json = await result.json();
+    // console.log(json);
+    count += 1;
+    await new Promise((r) => setTimeout(r, 1000));
+    setAllIssues(count);
+    // return json;
+  }
+  // const result = await api
+  //   .asApp()
+  //   .requestJira(
+  //     route`/rest/api/3/search?jql=${allProjects}${paginated}&fields=summary,comment`
+  //   );
 
 
-  const json = await result.json();
-  console.log(json);
-  return json;
+  // const json = await result.json();
+  // console.log(json);
+  // return json;
+};
+
+const reTryCatch = async (allIssues, setAllIssues) => {
+  let output;
+  let count = 0;
+  const maxTries = 3;
+  while (count < maxTries) {
+    setAllIssues(allIssues + ' ' + `running attempt ${count + 1}...`);
+    console.log(`running attempt ${count + 1}...`);
+    // const result = await api
+    //   .asApp()
+    //   .requestJira(
+    //     route`/rest/api/3/search?jql=${allProjects}${paginated}&fields=summary,comment`
+    //   );
+    // await new Promise((r) => setTimeout(r, 1000));
+    count = count+1;
+  }
+  // setAllIssues(`finish at ${count + 1}...`);
 };
 
 export default function () {
-  const [allIssues, setAllIssues] = useState('');
+  const [allIssues, setAllIssues] = useState('loading...');
 
-  useEffect(async () => {
-    const allIssues = await getAllIssues();
+  useEffect(() => {
+    // const allIssues = 
+    // await getAllIssues(allIssues, setAllIssues);
+    reTryCatch(allIssues, setAllIssues);
 
-    setAllIssues(allIssues);
+    // setAllIssues(allIssues);
   }, []);
 
   // setAllIssues(getAllIssues());
@@ -46,7 +84,8 @@ export default function () {
     <GlobalPage>
       <Fragment>
         <Text>Hello, world from MyLabGlobalPage!</Text>
-        <Text><Code text={JSON.stringify(allIssues, null, 2)} /></Text>
+        <Text>{allIssues}</Text>
+        {/* <Text><Code text={JSON.stringify(allIssues, null, 2)} /></Text> */}
       </Fragment>
     </GlobalPage>
   );
