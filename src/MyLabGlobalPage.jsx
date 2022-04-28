@@ -3,6 +3,7 @@ import ForgeUI, {
   Tabs,
   Tab,
   Text,
+  Code,
   SectionMessage,
   Fragment,
   IssueGlance,
@@ -45,7 +46,7 @@ export default function () {
     <GlobalPage>
       <Fragment>
         <Text>Hello, world from MyLabGlobalPage!</Text>
-        <Text>{JSON.stringify(allIssues, null, 2)}</Text>
+        <Text><Code text={JSON.stringify(allIssues, null, 2)} /></Text>
       </Fragment>
     </GlobalPage>
   );
