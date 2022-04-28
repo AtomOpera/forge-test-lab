@@ -11,6 +11,7 @@ import ForgeUI, {
   useAction,
   useState,
   useEffect,
+  Button,
 } from '@forge/ui';
 import api, { route } from '@forge/api';
 
@@ -67,6 +68,7 @@ const reTryCatch = async (allIssues, setAllIssues) => {
 
 export default function () {
   const [allIssues, setAllIssues] = useState('loading...');
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     // const allIssues = 
@@ -86,6 +88,12 @@ export default function () {
         <Text>Hello, world from MyLabGlobalPage!</Text>
         <Text>{allIssues}</Text>
         {/* <Text><Code text={JSON.stringify(allIssues, null, 2)} /></Text> */}
+        <Button
+        text={`Count is ${count}`}
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      />
       </Fragment>
     </GlobalPage>
   );
