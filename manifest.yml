@@ -34,11 +34,15 @@ modules:
       handler: index.Glance
 permissions:
   scopes:
+    - read:application-role:jira 
+    - read:group:jira
+    - read:user:jira
     - read:issue-details:jira
     - read:audit-log:jira
     - read:avatar:jira
     - read:field-configuration:jira
     - read:issue-meta:jira
     - storage:app
+
 app:
   id: ari:cloud:ecosystem::app/02674004-369e-4ffe-8120-9589342ec454
