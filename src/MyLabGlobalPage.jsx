@@ -29,8 +29,8 @@ const getCurrentUser = async () => {
     }
   });
   
-  console.log(`Response: ${response.status} ${response.statusText}`);
-  console.log(await response.json());
+  // console.log(`Response: ${response.status} ${response.statusText}`);
+  // console.log(await response.json());
   const userJson = await response.json();
   return userJson;
 };
@@ -52,38 +52,77 @@ const getAllIssues = async (allIssues, setAllIssues) => {
 
 
   const json = await result.json();
-  console.log(json);
+  // console.log(json);
   setAllIssues(JSON.stringify(json, null, 2));
   return json;
 };
 
+const getIssuesCommentedByUser = (issues, userAccountId) => {
+  const issuesCommentedByUser = issues.filter((issue) => {
+    return issue.fields.comment.comments.some((comment) => {
+      return comment.author.accountId === userAccountId;
+    })
+  });
+  // console.log('issue.fields.comment.comments', issues[0].fields.comment.comments);
+  // console.log('issuesCommentedByUser', issuesCommentedByUser);
+  return issuesCommentedByUser;
+};
+
+const getIssuesInTableFormat = (issues) => {
+  //table format:
+  // [
+  //   {
+  //     key: 'XEN-1',
+  //     status: 'In Progress',
+  //   },
+  //   {
+  //     key: 'XEN-2',
+  //     status: 'To Do',
+  //   },
+  // ]
+  const issuesInTableFormat = issues.reduce((accumulator, currentValue) => {
+    return [...accumulator, { key: currentValue.key, summary: currentValue.fields.summary }];
+  }, []);
+  return issuesInTableFormat;
+};
+
 export default function () {
   const [allIssues, setAllIssues] = useState('loading...');
+  const [issuesCommentedByUser, setIssuesCommentedByUser] = useState('loading...');
+  const [issuesInTableFormat, setIssuesInTableFormat] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [count, setCount] = useState(0);
 
   useEffect(async () => {
     // const allIssues = 
-    await getAllIssues(allIssues, setAllIssues);
-    const userResp = await getCurrentUser();
-    setCurrentUser(userResp)
+    const currentIssues = await getAllIssues(allIssues, setAllIssues);
+
+    const currentUserResp = await getCurrentUser();
+    setCurrentUser(currentUserResp);
+
+    const currentIssuesCommentedByUser = getIssuesCommentedByUser(currentIssues.issues, currentUserResp.accountId);
+    setIssuesCommentedByUser(currentIssuesCommentedByUser);
+
+    const currentIssuesInTableFormat = getIssuesInTableFormat(currentIssuesCommentedByUser);
+    setIssuesInTableFormat(currentIssuesInTableFormat);
+    // console.log('currentIssuesInTableFormat', currentIssuesInTableFormat);
     // reTryCatch(allIssues, setAllIssues);
 
     // setAllIssues(allIssues);
   }, []);
 
   // setAllIssues(getAllIssues());
-  console.log('hello there!');
-  console.log(allIssues);
+  // console.log('hello there!');
+  // console.log(allIssues);
 
   const issues = [
     {
       key: 'XEN-1',
-      status: 'In Progress',
+      summary: 'In Progress',
     },
     {
       key: 'XEN-2',
-      status: 'To Do',
+      summary: 'To Do',
     },
   ];
 
@@ -97,29 +136,36 @@ export default function () {
               <Text>Issue Key</Text>
             </Cell>
             <Cell>
-              <Text>Status</Text>
+              <Text>Summary</Text>
             </Cell>
           </Head>
-          {issues.map(issue => (
+          {issuesInTableFormat?.map(issue => (
             <Row>
               <Cell>
                 <Text>{issue.key}</Text>
               </Cell>
               <Cell>
-                <Text>{issue.status}</Text>
+                <Text>{issue.summary}</Text>
               </Cell>
             </Row>
           ))}
         </Table>
-        <Text><Code text={JSON.stringify(currentUser, null, 2)} /></Text>
-        <Text><Code text={allIssues} /></Text>
-        {/* <Text><Code text={JSON.stringify(allIssues, null, 2)} /></Text> */}
         <Button
           text={`Count is ${count}`}
           onClick={() => {
             setCount(count + 1);
           }}
         />
+        {/* <Text><Code text={JSON.stringify(issuesCommentedByUser, null, 2)} /></Text>
+        <Text><Code text={JSON.stringify(currentUser, null, 2)} /></Text>
+        <Text><Code text={allIssues} /></Text> */}
+        {/* <Text><Code text={JSON.stringify(allIssues, null, 2)} /></Text> */}
+        {/* <Button
+          text={`Count is ${count}`}
+          onClick={() => {
+            setCount(count + 1);
+          }}
+        /> */}
       </Fragment>
     </GlobalPage>
   );
