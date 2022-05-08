@@ -55,6 +55,13 @@
   dependencies:
     tslib "^1.11.0"
 
+"@forge/resolver@^1.3.5":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@forge/resolver/-/resolver-1.4.3.tgz#e28c453fc09a5b51f54c633501ea81adc3bb03f0"
+  integrity sha512-UxFAxWHVUwuOEmVaaF1g7DakDidYjhQ/Tl2P7LHnLyTWY3/xNXWzilYpSQP8pNkOYLZV28fGcMfa2laIDRAcdw==
+  dependencies:
+    "@forge/api" "2.6.1"
+
 "@forge/storage@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@forge/storage/-/storage-1.2.0.tgz#6d048644f8d7a50e4411a1ee853f160da1dc5a2d"

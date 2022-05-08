@@ -1,16 +1,16 @@
 modules:
-  jira:globalPage:
-    - key: forge-test-lab-hello-world-global-page
-      function: global
-      title: forge-test-lab-ui-kit
-      icon: https://pic.onlinewebfonts.com/svg/img_286633.png
   # jira:globalPage:
-  #   - key: forge-test-lab-hello-world-global-page-custom
-  #     resource: main
-  #     # resolver:
-  #     #   function: resolver
-  #     title: forge-test-lab-custom-ui
+  #   - key: forge-test-lab-hello-world-global-page
+  #     function: global
+  #     title: forge-test-lab-ui-kit
   #     icon: https://pic.onlinewebfonts.com/svg/img_286633.png
+  jira:globalPage:
+    - key: forge-test-lab-hello-world-global-page-custom
+      resource: main
+      resolver:
+        function: resolver
+      title: forge-test-lab-custom-ui-async
+      icon: https://pic.onlinewebfonts.com/svg/img_286633.png
   jira:issuePanel:
     - key: forge-test-lab-hello-world-panel
       function: main
@@ -31,6 +31,8 @@ modules:
     # OR
     # - key: global
     #   handler: index.Global
+    - key: resolver
+      handler: index.handler
     - key: global
       handler: index.Global
     - key: main
