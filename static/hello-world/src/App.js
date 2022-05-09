@@ -6,6 +6,7 @@ function App() {
   const [data, setData] = useState(undefined);
   const [allIssues, setAllIssues] = useState([]);
   const [numOfIssues, setNumOfIssues] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const reTryCatch = async () => {
     let data;
@@ -33,7 +34,10 @@ function App() {
       console.log('currentIssues.length', currentIssues.length);
       startAt=startAt+maxResults;
       // isFinished = true;
-      if (jsonData.issues.map((issue) => issue.key).length === 0) isFinished = true;
+      if (jsonData.issues.map((issue) => issue.key).length === 0) {
+        isFinished = true;
+        setLoading(false);
+      }
     }
   }
 
@@ -66,6 +70,7 @@ function App() {
       {allIssues.join(', ')}
       <br />
       <br />
+      {loading && 'Loading...'}
       
       {/* {JSON.stringify(data)} */}
       {/* <div>
