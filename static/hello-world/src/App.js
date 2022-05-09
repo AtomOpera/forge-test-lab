@@ -1,32 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { invoke } from '@forge/bridge';
 
+
 function App() {
   const [data, setData] = useState(undefined);
-  const [allIssues, setAllIssues] = useState([1, 2].join(', '));
+  const [allIssues, setAllIssues] = useState([]);
+  const [numOfIssues, setNumOfIssues] = useState(0);
 
-  useEffect(async () => {
+  const reTryCatch = async () => {
     let data;
     let isFinished = false;
     let currentData = {...data} || {};
     let currentIssues = [...allIssues] || [];
     let startAt = 0;
-    const maxResults = 3;
+    const maxResults = 100;
     while (!isFinished) {
       
       // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
-      data = await invoke('getText', { startAt: startAt, maxResults });
+      console.log('currentIssues.length', currentIssues.length);
+      
+      data = await invoke('getText', { startAt: startAt+currentIssues.length, maxResults });
       const jsonData = JSON.parse(data);
       console.log('data', data);
       console.log('jsonData', jsonData);
       setData({...currentData, jsonData});
-      setAllIssues(jsonData.issues.map((issue) => issue.key).join(', '));
+      // setTheArray(oldArray => [...oldArray, newElement]);
+      setAllIssues(allIssues => [...allIssues, ...jsonData.issues.map((issue) => issue.key)]);
+      // const currentIss = allIssues => [...allIssues, ...jsonData.issues.map((issue) => issue.key)];
+      // setNumOfIssues(currentIss.length);
+      console.log('arrayarray ', [...currentIssues, ...jsonData.issues.map((issue) => issue.key)]);
       // setData(jsonData);
-      isFinished = true;
-      if (data.length === 0) isFinished = true;
+      console.log('currentIssues.length', currentIssues.length);
+      startAt=startAt+maxResults;
+      // isFinished = true;
+      if (jsonData.issues.map((issue) => issue.key).length === 0) isFinished = true;
     }
+  }
+
+  useEffect(() => {
+    reTryCatch();
     // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
   }, []);
+
+  useEffect(() => {
+    setNumOfIssues(allIssues.length);
+    // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
+  }, [allIssues]);
 
   if (data){
     console.log('data.issues', data.issues);
@@ -41,10 +60,14 @@ function App() {
     <div>
       <h2>Hello! There is going to be data here:</h2>
       {/* {keys} */}
-      {allIssues}
+      {numOfIssues}
       <br />
       <br />
-      {JSON.stringify(data)}
+      {allIssues.join(', ')}
+      <br />
+      <br />
+      
+      {/* {JSON.stringify(data)} */}
       {/* <div>
         {allIssues}
       </div> */}
