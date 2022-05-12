@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import UserPicker from '@atlaskit/user-picker';
+import { IntlProvider } from 'react-intl-next';
+// import { IntlProvider } from 'react-intl';
+import SmartUserPicker from '@atlaskit/smart-user-picker';
 import { invoke } from '@forge/bridge';
 
 
@@ -62,22 +64,36 @@ function App() {
   //   : 'Loading...';
 
   return (
-    <div>
-      <h2>Hello! There is going to be data here:</h2>
-      {/* {keys} */}
-      {numOfIssues}
-      <br />
-      <br />
-      {allIssues.join(', ')}
-      <br />
-      <br />
-      {loading && 'Loading...'}
-      
-      {/* {JSON.stringify(data)} */}
-      {/* <div>
-        {allIssues}
-      </div> */}
-    </div>
+    <IntlProvider locale="en">
+      <div>
+        <h1>Hi?</h1>
+        <div>
+          <SmartUserPicker
+            includeUsers
+            maxOptions={10}
+            fieldId="users"
+            siteId="invalid-site-id"
+            productKey="jira"
+          />
+        </div>
+        
+        
+        <h2>Hello! There is going to be data here:</h2>
+        {/* {keys} */}
+        {numOfIssues}
+        <br />
+        <br />
+        {allIssues.join(', ')}
+        <br />
+        <br />
+        {loading && 'Loading...'}
+        
+        {/* {JSON.stringify(data)} */}
+        {/* <div>
+          {allIssues}
+        </div> */}
+      </div>
+    </IntlProvider>
   );
 }
 
