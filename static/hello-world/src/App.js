@@ -1,7 +1,7 @@
+import "@atlaskit/css-reset";
 import React, { useEffect, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
-// import { IntlProvider } from 'react-intl';
 import SmartUserPicker from '@atlaskit/smart-user-picker';
+import { IntlProvider } from 'react-intl-next';
 import { invoke } from '@forge/bridge';
 
 
@@ -14,20 +14,20 @@ function App() {
   const reTryCatch = async () => {
     let data;
     let isFinished = false;
-    let currentData = {...data} || {};
+    let currentData = { ...data } || {};
     let currentIssues = [...allIssues] || [];
     let startAt = 0;
     const maxResults = 100;
     while (!isFinished) {
-      
+
       // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
       console.log('currentIssues.length', currentIssues.length);
-      
-      data = await invoke('getText', { startAt: startAt+currentIssues.length, maxResults });
+
+      data = await invoke('getText', { startAt: startAt + currentIssues.length, maxResults });
       const jsonData = JSON.parse(data);
       console.log('data', data);
       console.log('jsonData', jsonData);
-      setData({...currentData, jsonData});
+      setData({ ...currentData, jsonData });
       // setTheArray(oldArray => [...oldArray, newElement]);
       setAllIssues(allIssues => [...allIssues, ...jsonData.issues.map((issue) => issue.key)]);
       // const currentIss = allIssues => [...allIssues, ...jsonData.issues.map((issue) => issue.key)];
@@ -35,7 +35,7 @@ function App() {
       console.log('arrayarray ', [...currentIssues, ...jsonData.issues.map((issue) => issue.key)]);
       // setData(jsonData);
       console.log('currentIssues.length', currentIssues.length);
-      startAt=startAt+maxResults;
+      startAt = startAt + maxResults;
       // isFinished = true;
       if (jsonData.issues.map((issue) => issue.key).length === 0) {
         isFinished = true;
@@ -54,46 +54,53 @@ function App() {
     // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
   }, [allIssues]);
 
-  if (data){
+  if (data) {
     console.log('data.issues', data.issues);
   }
-  
+
 
   // const keys = data 
   //   ? (data.issues.map((issue) => issue.key).join(', '))
   //   : 'Loading...';
 
   return (
-    <IntlProvider locale="en">
+
+    <>
       <div>
-        <h1>Hi?</h1>
-        <div>
-          <SmartUserPicker
-            includeUsers
-            maxOptions={10}
-            fieldId="users"
-            siteId="invalid-site-id"
-            productKey="jira"
-          />
-        </div>
-        
-        
+        <h1>
+          Hi user pickers!
+        </h1>
+        <IntlProvider locale="en">
+          <p>
+            <SmartUserPicker
+              fieldId="test"
+              productKey="test"
+              siteId="test"
+              defaultValue={{ id: "1", name: "Bob", type: "user" }} />
+          </p>
+          <div>
+            <SmartUserPicker
+              includeUsers
+              maxOptions={10}
+              fieldId="users"
+              siteId="invalid-site-id"
+              productKey="jira" />
+          </div>
+        </IntlProvider>
         <h2>Hello! There is going to be data here:</h2>
         {/* {keys} */}
         {numOfIssues}
-        <br />
-        <br />
+        <><br /><br /></>
         {allIssues.join(', ')}
-        <br />
-        <br />
+        <><br /><br /></>
         {loading && 'Loading...'}
-        
+
         {/* {JSON.stringify(data)} */}
         {/* <div>
           {allIssues}
         </div> */}
       </div>
-    </IntlProvider>
+    </>
   );
 }
 
