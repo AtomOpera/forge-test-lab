@@ -38,7 +38,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@forge/api@2.6.1":
+"@forge/api@2.6.1", "@forge/api@^2.6.1":
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/@forge/api/-/api-2.6.1.tgz#8bed707ac395795feacc17e46310e78a491f4005"
   integrity sha512-HFw4BUr66VhKO7W6P1Vnh638kvO7RxJB92tDRYPD8DsJ8NC4GzgPxrgBNZDOFhvlIqfddTnE0nSnNmj+XvO9ug==
@@ -54,6 +54,14 @@
   integrity sha512-twZjWbIk+PrW2XzrUfVCzYhh1qe5igS4h9NpapZLHNm2CaCi1gjh8klVcGJijcYJWT1Sj6Qr9gBUtkZjCinJXw==
   dependencies:
     tslib "^1.11.0"
+
+"@forge/events@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@forge/events/-/events-0.5.3.tgz#8184a3e23360a0de7ea216470296b03024519e65"
+  integrity sha512-H7yupz9pOFPzsTu7Np0YuZmeHMNSKwrZbhmqeQBEj5L3djOHuLpgpKC9I63nkWPxLgvnzlw3thrvm5MdbQ1lOA==
+  dependencies:
+    "@forge/api" "^2.6.1"
+    uuid "^3.4.0"
 
 "@forge/resolver@^1.3.5":
   version "1.4.3"
@@ -842,6 +850,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+uuid@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
+  integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
 v8-compile-cache@^2.0.3:
   version "2.3.0"

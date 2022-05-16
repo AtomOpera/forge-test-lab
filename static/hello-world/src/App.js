@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import SmartUserPicker from '@atlaskit/smart-user-picker';
 import { IntlProvider } from 'react-intl-next';
 import { invoke } from '@forge/bridge';
+import { Queue } from '@forge/events';
+
+const queue = new Queue({ key: 'queue-name' });
 
 
 function App() {
@@ -54,10 +57,14 @@ function App() {
     // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
   }, [allIssues]);
 
+  useEffect(async () => {
+    // Push a single event with string payload
+    await queue.push('hello world');
+  }, []);
+
   if (data) {
     console.log('data.issues', data.issues);
   }
-
 
   // const keys = data 
   //   ? (data.issues.map((issue) => issue.key).join(', '))

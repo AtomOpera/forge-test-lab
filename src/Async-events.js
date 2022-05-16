@@ -1,6 +1,16 @@
-import { Queue } from '@forge/events';
+import Resolver from "@forge/resolver";
+const resolver = new Resolver();
 
-const queue = new Queue({ key: 'queue-name' });
+resolver.define("event-listener", async ({ payload, context }) => {
+  // process the event
+  await new Promise((r) => setTimeout(r, 2000));
+  console.log('payload', payload);
+  console.log('context', context);
+});
+
+export const handler = resolver.getDefinitions();
+
+// const queue = new Queue({ key: 'queue-name' });
 
 // type Payload = string | number | boolean | { [key: string]: Payload };
 // type PushSettings = { delayInSeconds: number }
@@ -11,7 +21,7 @@ const queue = new Queue({ key: 'queue-name' });
 // await queue.push(Payload | Payload[], PushSettings)
 
 // Push a single event with string payload
-await queue.push('hello world');
+// await queue.push('hello world');
 
 // Push a single event with JSON payload
 // await queue.push({ "hello": "world" });
