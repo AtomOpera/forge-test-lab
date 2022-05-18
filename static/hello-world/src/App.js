@@ -75,7 +75,7 @@ function App() {
     <>
       <div>
         <h1>
-          Hi user pickers!
+          Hiya user pickers!
         </h1>
         <IntlProvider locale="en">
           <p>
