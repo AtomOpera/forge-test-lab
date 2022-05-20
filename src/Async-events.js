@@ -74,10 +74,11 @@ resolver.define('getText', async (req) => {
 resolver.define('getQueueProgress', async (req) => {
   console.log('HELLO');
   const { jobId } = req.payload;
+  if (!jobId) return;
 
   const queue = new Queue({ key: 'queue-name' });
-  const res = new QueueResponse();
-  console.log('res', res);
+  // const res = new QueueResponse();
+  // console.log('res', res);
   console.log('req', req);
   console.log('newJobId', jobId);
 
