@@ -8,7 +8,8 @@ modules:
     - key: forge-test-lab-hello-world-global-page-custom
       resource: main
       resolver:
-        function: resolver
+        # function: resolver
+        function: consumer-function
       title: forge-test-lab-custom-ui-async
       icon: https://pic.onlinewebfonts.com/svg/img_286633.png
   jira:issuePanel:
@@ -25,7 +26,17 @@ modules:
       function: issue-glance-ui
       title: forge-test-lab
       label: forge-test-lab label
+  consumer:
+    - key: queue-consumer
+      # Name of the queue for which this consumer will be invoked
+      queue: queue-name
+      resolver:
+        function: consumer-function
+        # resolver function to be called with payload
+        method: event-listener
   function:
+    - key: consumer-function
+      handler: Async-events.handler
     # - key: global
     #   handler: global.run
     # OR
