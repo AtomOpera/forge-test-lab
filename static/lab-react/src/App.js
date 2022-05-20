@@ -61,12 +61,25 @@ function App() {
       const newJobId = await invoke('createQueue');
       console.log('newJobId', newJobId);
       setJobId(newJobId);
-      const newProgress = await invoke('getQueueProgress', { newJobId });
+      const newProgress = await invoke('getQueueProgress', { jobId: newJobId });
       console.log('newProgress', newProgress);
       // const jsonResp = await newProgress.json();
       setJobProgress(newProgress);
     })();
   }, []);
+
+  useEffect(() => {
+    console.log('jobProgress', jobProgress);
+    console.log(jobProgress?.inProgress);
+    if (jobProgress && jobProgress.inProgress === 0) return;
+    (async () => {
+      const newProgress = await invoke('getQueueProgress', { jobId });
+      console.log({ jobId });
+      console.log('newProgress', newProgress);
+      // const jsonResp = await newProgress.json();
+      setJobProgress(newProgress);
+    })();
+  }, [jobProgress, jobId]);
 
   // useEffect(() => {
   //   (async () => {
@@ -76,7 +89,7 @@ function App() {
   //     setJobProgress(newProgress);
   //   })();
   // }, [jobId]);
-  
+
 
   // useEffect(async () => {
   //   // Push a single event with string payload
@@ -96,12 +109,12 @@ function App() {
 
     <>
       <div>
-      <h1>
+        <h1>
           Job ID:
         </h1>
         <p>{jobId ? jobId : 'Loading...'}</p>
         <h1>
-          Job progress:
+          Job progress yeah:
         </h1>
         <p>{jobProgress ? JSON.stringify(jobProgress) : 'Loading...'}</p>
         <h1>

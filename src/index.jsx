@@ -31,7 +31,7 @@ const getAllUsersForPicker = async () => {
       'Accept': 'application/json'
     }
   });
-  
+
   // console.log(`Response: ${response.status} ${response.statusText}`);
   // console.log(await response.json());
 }
@@ -48,7 +48,7 @@ const getAllIssues = async (startAt = 0, maxResults = 3) => {
     .requestJira(
       route`/rest/api/3/search?jql=project is not EMPTY&startAt=${startAt}&maxResults=${maxResults}&fields=summary,comment`       // route`/rest/api/3/search?jql=${allProjects}` // ${paginated}&fields=summary,comment`
     );
- 
+
   console.log('startAt', startAt);
   console.log('maxResults', maxResults);
   // console.log('result', result);
@@ -58,7 +58,7 @@ const getAllIssues = async (startAt = 0, maxResults = 3) => {
   // setAllIssues(JSON.stringify(json, null, 2));
   return json;
 };
- 
+
 resolver.define('getText', async (req) => {
   console.log(req);
   const { startAt, maxResults } = req.payload;
@@ -72,16 +72,17 @@ resolver.define('getText', async (req) => {
 });
 
 resolver.define('getQueueProgress', async (req) => {
-  const { newJobId } = req.payload;
-  const queue = new Queue({ key: 'queue-name' });
-  console.log('req', req);
-  console.log('newJobId', newJobId);
+  const { jobId } = req.payload;
 
-  const jobProgress = queue.getJob(newJobId);
+  // const queue = new Queue({ key: 'queue-name' });
+  console.log('req', req);
+  console.log('newJobId', jobId);
+
+  const jobProgress = Queue.getJob(jobId);
   console.log('jobProgress', jobProgress);
   // Get stats of a particular job
   const response = await jobProgress.getStats();
-  
+
   const jsonResp = await response.json();
   console.log('jsonResp', jsonResp);
   // return resp;
