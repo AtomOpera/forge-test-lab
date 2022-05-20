@@ -43,7 +43,7 @@ modules:
       handler: index.Glance
 resources:
   - key: main
-    path: static/hello-world/build
+    path: static/lab-react/build
 permissions:
   content:
     styles:

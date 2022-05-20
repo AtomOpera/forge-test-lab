@@ -1515,12 +1515,42 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@forge/api@^2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@forge/api/-/api-2.6.1.tgz#8bed707ac395795feacc17e46310e78a491f4005"
+  integrity sha512-HFw4BUr66VhKO7W6P1Vnh638kvO7RxJB92tDRYPD8DsJ8NC4GzgPxrgBNZDOFhvlIqfddTnE0nSnNmj+XvO9ug==
+  dependencies:
+    "@forge/auth" "^0.0.1"
+    "@forge/storage" "^1.2.0"
+    "@types/node-fetch" "^2.5.7"
+    node-fetch "2.6.1"
+
+"@forge/auth@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@forge/auth/-/auth-0.0.1.tgz#3fb4e82e90bd555d4ae9ef45b3aed6782a282d0c"
+  integrity sha512-twZjWbIk+PrW2XzrUfVCzYhh1qe5igS4h9NpapZLHNm2CaCi1gjh8klVcGJijcYJWT1Sj6Qr9gBUtkZjCinJXw==
+  dependencies:
+    tslib "^1.11.0"
+
 "@forge/bridge@^2.1.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@forge/bridge/-/bridge-2.2.1.tgz#6293990699ab4ab2feea0a7239e715b7924f9ffe"
   integrity sha512-RHuJ5WCzp5h7oJp/3MQdrh02UHDYV9RwHEx4XvAej2GdWa4FeWYsW7KsC/ht5Z6FdQNGOEBsz9t0Ei4QcdN48Q==
   dependencies:
     "@types/history" "^4.7.8"
+
+"@forge/events@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@forge/events/-/events-0.5.3.tgz#8184a3e23360a0de7ea216470296b03024519e65"
+  integrity sha512-H7yupz9pOFPzsTu7Np0YuZmeHMNSKwrZbhmqeQBEj5L3djOHuLpgpKC9I63nkWPxLgvnzlw3thrvm5MdbQ1lOA==
+  dependencies:
+    "@forge/api" "^2.6.1"
+    uuid "^3.4.0"
+
+"@forge/storage@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@forge/storage/-/storage-1.2.0.tgz#6d048644f8d7a50e4411a1ee853f160da1dc5a2d"
+  integrity sha512-/pRNxvKcjv/nEShk6p3tSefmYDBjmInc9kUtvjsr183t8dF72gbSl70YVD73+DwCJYUkFsvsQ4zR7h93/K0oLw==
 
 "@formatjs/ecma402-abstract@1.11.4":
   version "1.11.4"
@@ -2202,6 +2232,14 @@
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.5.tgz#1001cc5e6a3704b83c236027e77f2f58ea010f40"
   integrity sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==
+
+"@types/node-fetch@^2.5.7":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.6.1.tgz#8f127c50481db65886800ef496f20bbf15518975"
+  integrity sha512-oMqjURCaxoSIsHSr1E47QHzbmzNR5rK8McHuNb11BOM9cHcIK3Avy0s/b2JlXHoQGTYS3NsvWzV1M0iK7l0wbA==
+  dependencies:
+    "@types/node" "*"
+    form-data "^3.0.0"
 
 "@types/node@*":
   version "17.0.33"
@@ -8293,6 +8331,11 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
+node-fetch@2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
+
 node-fetch@2.6.7:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
@@ -10010,6 +10053,7 @@ react-input-autosize@^3.0.0:
     prop-types "^15.5.8"
 
 "react-intl-next@npm:react-intl@^5.18.1", react-intl@5.25.1:
+  name react-intl-next
   version "5.25.1"
   resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-5.25.1.tgz#68a73aefc485c9bf70062381ae7f6f4791680879"
   integrity sha512-pkjdQDvpJROoXLMltkP/5mZb0/XqrqLoPGKUCfbdkP8m6U9xbK40K51Wu+a4aQqTEvEK5lHBk0fWzUV72SJ3Hg==
@@ -11704,7 +11748,7 @@ tsconfig-paths@^3.14.1:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^1.8.1:
+tslib@^1.11.0, tslib@^1.8.1:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
@@ -12050,7 +12094,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.1.0, uuid@^3.3.2:
+uuid@^3.1.0, uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==

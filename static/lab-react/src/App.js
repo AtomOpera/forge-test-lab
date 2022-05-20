@@ -10,6 +10,8 @@ function App() {
   const [allIssues, setAllIssues] = useState([]);
   const [numOfIssues, setNumOfIssues] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [jobId, setJobId] = useState(undefined);
+  const [jobProgress, setJobProgress] = useState(undefined);
 
   const reTryCatch = async () => {
     let data;
@@ -54,6 +56,33 @@ function App() {
     // invoke('getText', { startAt: 0, maxResults: 3 }).then(setData);
   }, [allIssues]);
 
+  useEffect(() => {
+    (async () => {
+      const newJobId = await invoke('createQueue');
+      console.log('newJobId', newJobId);
+      setJobId(newJobId);
+      const newProgress = await invoke('getQueueProgress', { newJobId });
+      console.log('newProgress', newProgress);
+      // const jsonResp = await newProgress.json();
+      setJobProgress(newProgress);
+    })();
+  }, []);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const newProgress = await invoke('getQueueProgress', { newJobId: jobId });
+  //     console.log('newProgress', newProgress);
+  //     const jsonResp = await newProgress.json();
+  //     setJobProgress(newProgress);
+  //   })();
+  // }, [jobId]);
+  
+
+  // useEffect(async () => {
+  //   // Push a single event with string payload
+  //   await queue.push('hello world');
+  // }, []);
+
   if (data) {
     console.log('data.issues', data.issues);
   }
@@ -67,6 +96,14 @@ function App() {
 
     <>
       <div>
+      <h1>
+          Job ID:
+        </h1>
+        <p>{jobId ? jobId : 'Loading...'}</p>
+        <h1>
+          Job progress:
+        </h1>
+        <p>{jobProgress ? JSON.stringify(jobProgress) : 'Loading...'}</p>
         <h1>
           Hi user pickers!
         </h1>
