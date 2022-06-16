@@ -13,11 +13,11 @@ import ForgeUI, {
   useState,
   useEffect,
   Button,
-  render, 
-  Macro, 
-  Table, 
-  Head, 
-  Cell, 
+  render,
+  Macro,
+  Table,
+  Head,
+  Cell,
   Row,
 } from '@forge/ui';
 import api, { route } from '@forge/api';
@@ -28,7 +28,7 @@ const getCurrentUser = async () => {
       'Accept': 'application/json'
     }
   });
-  
+
   // console.log(`Response: ${response.status} ${response.statusText}`);
   // console.log(await response.json());
   const userJson = await response.json();
@@ -46,7 +46,7 @@ const getAllIssues = async (allIssues, setAllIssues) => {
   const result = await api
     .asApp()
     .requestJira(
-      route`/rest/api/3/search?jql=project is not EMPTY&startAt=0&maxResults=10&fields=summary,comment`
+      route`/rest/api/3/search?jql=project is not EMPTY&startAt=0&maxResults=50&fields=summary,comment`
       // route`/rest/api/3/search?jql=${allProjects}` // ${paginated}&fields=summary,comment`
     );
 
@@ -92,16 +92,20 @@ export default function () {
   const [issuesInTableFormat, setIssuesInTableFormat] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [count, setCount] = useState(0);
+  const [startAt, setstartAt] = useState(0);
+  const [totalIssues, setTotalIssues] = useState(0);
+  const [totalCommentedIssues, setTotalComentedIssues] = useState(0);
 
   useEffect(async () => {
     // const allIssues = 
     const currentIssues = await getAllIssues(allIssues, setAllIssues);
-
+    setTotalIssues(currentIssues.issues.length);
     const currentUserResp = await getCurrentUser();
     setCurrentUser(currentUserResp);
 
     const currentIssuesCommentedByUser = getIssuesCommentedByUser(currentIssues.issues, currentUserResp.accountId);
     setIssuesCommentedByUser(currentIssuesCommentedByUser);
+    setTotalComentedIssues(currentIssuesCommentedByUser.length);
 
     const currentIssuesInTableFormat = getIssuesInTableFormat(currentIssuesCommentedByUser);
     setIssuesInTableFormat(currentIssuesInTableFormat);
@@ -130,6 +134,7 @@ export default function () {
     <GlobalPage>
       <Fragment>
         <Text>Hello <Strong>{currentUser?.displayName || 'loading...'}</Strong> from MyForgeLabGlobalPage</Text>
+        <Text>Total issues found <Strong>{totalCommentedIssues || 'loading...'}</Strong> out of <Strong>{totalIssues || 'loading...'}</Strong></Text>
         <Table>
           <Head>
             <Cell>
@@ -150,6 +155,12 @@ export default function () {
             </Row>
           ))}
         </Table>
+        <Button
+          text={`Load more results ${startAt}`}
+          onClick={() => {
+            setstartAt(startAt + 50);
+          }}
+        />
         <Button
           text={`Count is ${count}`}
           onClick={() => {

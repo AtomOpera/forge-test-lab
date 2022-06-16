@@ -1,17 +1,17 @@
 modules:
-  # jira:globalPage:
-  #   - key: forge-test-lab-hello-world-global-page
-  #     function: global
-  #     title: forge-test-lab-ui-kit
-  #     icon: https://pic.onlinewebfonts.com/svg/img_286633.png
   jira:globalPage:
-    - key: forge-test-lab-hello-world-global-page-custom
-      resource: main
-      resolver:
-        # function: resolver
-        function: consumer-function
-      title: forge-test-lab-custom-ui-async
+    - key: forge-test-lab-hello-world-global-page
+      function: global # which redirects to MyLabGlobalPage
+      title: forge-test-lab-ui-kit
       icon: https://pic.onlinewebfonts.com/svg/img_286633.png
+  # jira:globalPage:
+  #   - key: forge-test-lab-hello-world-global-page-custom
+  #     resource: main # resources > main which redirects to static/lab-react/build
+  #     resolver:
+  #       # function: resolver
+  #       function: consumer-function
+  #     title: forge-test-lab-custom-ui-async
+  #     icon: https://pic.onlinewebfonts.com/svg/img_286633.png
   jira:issuePanel:
     - key: forge-test-lab-hello-world-panel
       function: main
