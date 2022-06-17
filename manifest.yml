@@ -71,6 +71,7 @@ permissions:
     - read:field-configuration:jira
     - read:issue-meta:jira
     - storage:app
+    - read:jira-work
 
 app:
   id: ari:cloud:ecosystem::app/02674004-369e-4ffe-8120-9589342ec454
