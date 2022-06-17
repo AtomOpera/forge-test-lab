@@ -204,6 +204,18 @@ export default function () {
     },
   ];
 
+  const fakeProjects = [
+    {
+      name: 'project 1',
+      key: 'P',
+    },
+    {
+      name: 'project 2',
+      key: 'PP',
+    },
+  ];
+
+
   const actionButtons = [
     <Button
       text={!issuesInTableFormat ? 'Search for issues I have commented on...' : `Load more results ${startAt}`}
@@ -265,13 +277,10 @@ export default function () {
             submitButtonText={!issuesInTableFormat ? 'Search for issues I have commented on...' : `Load more results ${startAt}`}
           // actionButtons={actionButtons}
           >
-            <Select label="Filter by projects" name="projects" isMulti>
-              <Option defaultSelected label="All projects" value="one" />
-              {options.map(option => <Option {...option} />)}
-              {/* {allProjects.map((project) => {
-                // <Option label={project.name} value={project.key} />
-                <Option label="lalala" value="lalala" />
-              })} */}
+            <Select label="Filter by projects?" name="projects" isMulti placeholder="Do not filter">
+              {/* <Option defaultSelected label="All projects" value="one" /> */}
+              {/* {options.map(option => <Option {...option} />)} */}
+              {allProjects.map((project) => <Option label={project.name} value={project.key} />)}
               {/* <Option label="Milestone 2" value="two" />
               <Option label="Milestone 3" value="three" /> */}
             </Select>
@@ -283,12 +292,13 @@ export default function () {
           {formState && <Text>{JSON.stringify(formState)}</Text>}
           {/* <Text>{JSON.stringify(allProjects)}</Text>
           <Text>{JSON.stringify(aProjectPage)}</Text> */}
-          {aProjectPage.map((project) => {
+          {/* {fakeProjects.map(project => <Text key={project.key}>{project.name}</Text>)} */}
+          {/* {aProjectPage.map((project) => {
             <Text>{project.name}</Text>
-          })}
-          {allProjects.map((project) => {
-            <Text>{project.name}</Text>
-          })}
+          })} */}
+          {/* {allProjects.map((project) => { <Text>{project.name}</Text> })} */}
+          {allProjects.map(project => <Text>{project.name}</Text>)}
+          {/* <Text>{JSON.stringify(allProjects)}</Text> */}
         </Fragment>
 
         {/* <Button
