@@ -23,6 +23,7 @@ import ForgeUI, {
   TextField,
   Select,
   Option,
+  UserPicker,
 } from '@forge/ui';
 import api, { route } from '@forge/api';
 
@@ -277,6 +278,12 @@ export default function () {
             submitButtonText={!issuesInTableFormat ? 'Search for issues I have commented on...' : `Load more results ${startAt}`}
           // actionButtons={actionButtons}
           >
+            <Select label="Search for?" name="search">
+              <Option defaultSelected label="Issues commented by user" value="one" />
+              <Option label="Issues blablabla" value="two" />
+              <Option label="Issues blablabla" value="three" />
+            </Select>
+            <UserPicker label="User" name="user" defaultValue={currentUser?.accountId} />
             <Select label="Filter by projects?" name="projects" isMulti placeholder="Do not filter">
               {/* <Option defaultSelected label="All projects" value="one" /> */}
               {/* {options.map(option => <Option {...option} />)} */}
@@ -290,6 +297,7 @@ export default function () {
             setAllProjects(resp)
           }} text="Change options" />
           {formState && <Text>{JSON.stringify(formState)}</Text>}
+          <Text>{JSON.stringify(currentUser)}</Text>
           {/* <Text>{JSON.stringify(allProjects)}</Text>
           <Text>{JSON.stringify(aProjectPage)}</Text> */}
           {/* {fakeProjects.map(project => <Text key={project.key}>{project.name}</Text>)} */}
